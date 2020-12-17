@@ -1,12 +1,4 @@
 # docker-airflow
-[![CI status](https://github.com/puckel/docker-airflow/workflows/CI/badge.svg?branch=master)](https://github.com/puckel/docker-airflow/actions?query=workflow%3ACI+branch%3Amaster+event%3Apush)
-[![Docker Build status](https://img.shields.io/docker/build/puckel/docker-airflow?style=plastic)](https://hub.docker.com/r/puckel/docker-airflow/tags?ordering=last_updated)
-
-[![Docker Hub](https://img.shields.io/badge/docker-ready-blue.svg)](https://hub.docker.com/r/puckel/docker-airflow/)
-[![Docker Pulls](https://img.shields.io/docker/pulls/puckel/docker-airflow.svg)]()
-[![Docker Stars](https://img.shields.io/docker/stars/puckel/docker-airflow.svg)]()
-
-This repository contains **Dockerfile** of [apache-airflow](https://github.com/apache/incubator-airflow) for [Docker](https://www.docker.com/)'s [automated build](https://registry.hub.docker.com/u/puckel/docker-airflow/) published to the public [Docker Hub Registry](https://registry.hub.docker.com/).
 
 ## Informations
 
@@ -19,14 +11,14 @@ This repository contains **Dockerfile** of [apache-airflow](https://github.com/a
 
 Pull the image from the Docker repository.
 
-    docker pull puckel/docker-airflow
+    docker pull airflow-docker-1.10.13
 
 ## Build
 
 Optionally install [Extra Airflow Packages](https://airflow.incubator.apache.org/installation.html#extra-package) and/or python dependencies at build time :
 
-    docker build --rm --build-arg AIRFLOW_DEPS="datadog,dask" -t puckel/docker-airflow .
-    docker build --rm --build-arg PYTHON_DEPS="flask_oauthlib>=0.9" -t puckel/docker-airflow .
+    docker build --rm --build-arg AIRFLOW_DEPS="datadog,dask" -t airflow-docker-1.10.13 .
+    docker build --rm --build-arg PYTHON_DEPS="flask_oauthlib>=0.9" -t airflow-docker-1.10.13 .
 
 or combined
 
