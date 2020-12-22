@@ -1,3 +1,13 @@
+export AIRFLOW__CORE__AIRFLOW_HOME="/usr/local/airflow"
+export AIRFLOW_HOME="${AIRFLOW__CORE__AIRFLOW_HOME}"
+export AIRFLOW__CORE__DAGS_FOLDER="${AIRFLOW__CORE__AIRFLOW_HOME}/dags"
+export AIRFLOW__CORE__SQL_ALCHEMY_CONN="mysql://airflow:airflow@localhost/airflow"
+export AIRFLOW__CORE__EXECUTOR="CeleryExecutor"
+export AIRFLOW__CELERY__CELERY_RESULT_BACKEND="db+mysql://airflow:airflow@localhost:3306/airflow"
+export AIRFLOW__CORE__LOAD_EXAMPLES="False"
+export AIRFLOW_CONN_AIRFLOW_DB="mysql://airflow:airflow@localhost:3306/airflow"
+
+
 #!/usr/bin/env bash
 
 # User-provided configuration must always be respected.
@@ -42,19 +52,19 @@ wait_for_port() {
   done
 }
 
-# Other executors than SequentialExecutor drive the need for an SQL database, here PostgreSQL is used
+# Other executors than SequentialExecutor drive the need for an SQL database, here MySQL is used
 if [ "$AIRFLOW__CORE__EXECUTOR" != "SequentialExecutor" ]; then
   # Check if the user has provided explicit Airflow configuration concerning the database
   if [ -z "$AIRFLOW__CORE__SQL_ALCHEMY_CONN" ]; then
     # Default values corresponding to the default compose files
-    : "${POSTGRES_HOST:="postgres"}"
-    : "${POSTGRES_PORT:="5432"}"
-    : "${POSTGRES_USER:="airflow"}"
-    : "${POSTGRES_PASSWORD:="airflow"}"
-    : "${POSTGRES_DB:="airflow"}"
-    : "${POSTGRES_EXTRAS:-""}"
+    : "${MYSQL_HOST:=""}"
+    : "${MYSQL_PORT:="3306"}"
+    : "${MYSQL_USER:="airflow"}"
+    : "${MYSQL_PASSWORD:="airflow"}"
+    : "${MYSQL_DB:="airflow"}"
+    : "${MYSQL_EXTRAS:-""}"
 
-    AIRFLOW__CORE__SQL_ALCHEMY_CONN="postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}${POSTGRES_EXTRAS}"
+    AIRFLOW__CORE__SQL_ALCHEMY_CONN="://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}${POSTGRES_EXTRAS}"
     export AIRFLOW__CORE__SQL_ALCHEMY_CONN
 
     # Check if the user has provided explicit Airflow configuration for the broker's connection to the database
